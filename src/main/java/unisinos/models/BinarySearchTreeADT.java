@@ -1,16 +1,18 @@
 package unisinos.models;
 
-public abstract class BinarySearchTreeADT<T> {
+import java.sql.Struct;
+
+public abstract class BinarySearchTreeADT<TKey extends Integer, TValue> {
 
     public abstract void clear();
 
     public abstract Boolean isEmpty();
 
-    public abstract T search(T key);
+    public abstract Node<TKey, TValue> search(TKey key);
 
-    public abstract void insert(T key);
+    public abstract void insert(TKey key, TValue value);
 
-    public abstract Boolean delete(T key);
+    public abstract Boolean delete(TKey key);
 
     public abstract void preOrderTraversal();
 
@@ -22,11 +24,11 @@ public abstract class BinarySearchTreeADT<T> {
 
     public abstract int countInternal();
 
-    public abstract int degree(T key);
+    public abstract int degree(TKey key);
 
-    public abstract int height(T key);
+    public abstract int height(TKey key);
 
-    public abstract int level(T key);
+    public abstract int level(TKey key);
 
-    public abstract String ancestor(T key);
+    public abstract String ancestor(TKey key);
 }
