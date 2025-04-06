@@ -113,17 +113,50 @@ public class BinarySearchTree<TKey extends Integer, TValue> extends BinarySearch
 
     @Override
     public void preOrderTraversal() {
+        preOrderTraversal(this.root);
+    }
 
+    private void preOrderTraversal(Node<TKey, TValue> node) {
+
+        if(node == null){
+            return;
+        }
+
+        System.out.println(node.key);
+        preOrderTraversal(node.left);
+        preOrderTraversal(node.right);
     }
 
     @Override
     public void inOrderTraversal() {
+        inOrderTraversal(this.root);
+    }
 
+    private void inOrderTraversal(Node<TKey, TValue> node) {
+
+        if(node == null){
+            return;
+        }
+       
+        inOrderTraversal(node.left);
+        System.out.println(node.key);
+        inOrderTraversal(node.right);
     }
 
     @Override
     public void postOrderTraversal() {
+        postOrderTraversal(this.root);
+    }
 
+    private void postOrderTraversal(Node<TKey, TValue> node) {
+
+        if(node == null){
+            return;
+        }
+       
+        postOrderTraversal(node.left);        
+        postOrderTraversal(node.right);
+        System.out.println(node.key);
     }
 
     @Override

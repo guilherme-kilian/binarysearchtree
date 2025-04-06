@@ -1,7 +1,9 @@
 import org.junit.jupiter.api.Test;
 import unisinos.models.BinarySearchTree;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.util.List;
 
 public class BinarySearchTreeTest {
 
@@ -20,6 +22,53 @@ public class BinarySearchTreeTest {
         list.insert(29, "cheddar");
 
         return list;
+    }
+
+    @Test
+    public void test_preOrderTraversal() {
+        var list = getList();
+
+        var outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+
+        list.preOrderTraversal();
+
+        var expected = List.of("10", "8", "3", "2", "5", "9", "12", "27", "15", "28", "29");
+        var actual = outContent.toString().trim().split("\\R");
+
+        assertEquals(expected, List.of(actual));
+    }
+
+
+
+    @Test
+    public void test_inOrderTraversal() {
+        var list = getList();
+
+        var outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+
+        list.inOrderTraversal();
+
+        var expected = List.of("2", "3", "5", "8", "9", "10", "12", "15", "27", "28", "29");
+        var actual = outContent.toString().trim().split("\\R");
+
+        assertEquals(expected, List.of(actual));
+    }
+
+    @Test
+    public void test_postOrderTraversal() {
+        var list = getList();
+
+        var outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+
+        list.postOrderTraversal();
+
+        var expected = List.of("2", "5", "3", "9", "8", "15", "29", "28", "27", "12", "10");
+        var actual = outContent.toString().trim().split("\\R");
+
+        assertEquals(expected, List.of(actual));
     }
 
     @Test
