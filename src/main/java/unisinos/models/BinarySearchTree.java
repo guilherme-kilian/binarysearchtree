@@ -3,7 +3,10 @@ package unisinos.models;
 import com.sun.jdi.Value;
 
 import java.sql.Struct;
+import java.util.ArrayDeque;
+import java.util.LinkedList;
 import java.util.Optional;
+import java.util.Queue;
 
 public class BinarySearchTree<TKey extends Integer, TValue> extends BinarySearchTreeADT<TKey, TValue> {
 
@@ -125,7 +128,28 @@ public class BinarySearchTree<TKey extends Integer, TValue> extends BinarySearch
 
     @Override
     public void levelOrderTraversal() {
+        if(this.root == null){
+            return;
+        }
 
+        var queue = new LinkedList<Node<TKey,TValue>>();
+        queue.add(root);
+
+        while(!queue.isEmpty()){
+            var current = queue.removeFirst();
+
+            if (current == null) {
+                break;
+            }
+
+            System.out.println(current.key + " ");
+            if(current.left != null){
+                queue.add(current.left);
+            }
+            if(current.right != null){
+                queue.add(current.right);
+            }
+        }
     }
 
     @Override
