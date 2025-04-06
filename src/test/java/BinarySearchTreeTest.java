@@ -85,4 +85,31 @@ public class BinarySearchTreeTest {
         var list = getList();
         assertEquals(5,  list.countInternal());
     }
+
+    @Test
+    public void test_height() {
+        var list = getList();
+        assertEquals(4, list.height(10));
+        assertEquals(0, list.height(5));
+        assertEquals(-1, list.height(4));
+        assertEquals(1, list.height(28));
+    }
+
+    @Test
+    public void test_level() {
+        var list = getList();
+        assertEquals(0, list.level(10));
+        assertEquals(2, list.level(9));
+        assertEquals(-1, list.level(4));
+        assertEquals(3, list.level(28));
+    }
+
+    @Test
+    public void test_ancestor() {
+        var list = getList();
+        assertEquals("10 12 27", list.ancestor(28));
+        assertEquals("10 8", list.ancestor(9));
+        assertEquals(null, list.ancestor(10));
+        assertEquals(null, list.ancestor(4));
+    }
 }

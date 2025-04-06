@@ -1,7 +1,5 @@
 package unisinos.models;
 
-import java.sql.Struct;
-
 public class Node<TKey extends Integer, TValue> {
     public TValue value;
     public TKey key;
