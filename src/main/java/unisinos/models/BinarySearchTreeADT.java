@@ -1,7 +1,5 @@
 package unisinos.models;
 
-import java.sql.Struct;
-
 public abstract class BinarySearchTreeADT<TKey extends Integer, TValue> {
 
     public abstract void clear();

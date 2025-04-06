@@ -1,12 +1,6 @@
 package unisinos.models;
 
-import com.sun.jdi.Value;
-
-import java.sql.Struct;
-import java.util.ArrayDeque;
 import java.util.LinkedList;
-import java.util.Optional;
-import java.util.Queue;
 
 public class BinarySearchTree<TKey extends Integer, TValue> extends BinarySearchTreeADT<TKey, TValue> {
 
@@ -27,11 +21,10 @@ public class BinarySearchTree<TKey extends Integer, TValue> extends BinarySearch
         return this.searchNode(this.root, key);
     }
 
-    private Node<TKey, TValue> searchNode(Node<TKey, TValue> current, TKey key){
-        if(current == null){
+    private Node<TKey, TValue> searchNode(Node<TKey, TValue> current, TKey key) {
+        if (current == null) {
             return null;
-        }
-        else if(current.key.equals(key)){
+        } else if (current.key.equals(key)) {
             return current;
         }
 
@@ -47,13 +40,11 @@ public class BinarySearchTree<TKey extends Integer, TValue> extends BinarySearch
 
     private Node<TKey, TValue> insertNode(Node<TKey, TValue> current, Node<TKey, TValue> newNode) {
 
-        if(current == null){
+        if (current == null) {
             return newNode;
-        }
-        else if(newNode.greaterKey(current.key)){
+        } else if (newNode.greaterKey(current.key)) {
             current.right = insertNode(current.right, newNode);
-        }
-        else if(newNode.lessKey(current.key)){
+        } else if (newNode.lessKey(current.key)) {
             current.left = insertNode(current.left, newNode);
         }
 
@@ -66,28 +57,24 @@ public class BinarySearchTree<TKey extends Integer, TValue> extends BinarySearch
         var current = tuple.current;
         var parent = tuple.parent;
 
-        if(current == null){
+        if (current == null) {
             return false;
-        }
-        else if(current.left != null && current.right != null){
+        } else if (current.left != null && current.right != null) {
             var right = current.right;
-            while (right.right != null){
+            while (right.right != null) {
                 right = right.right;
             }
             delete(right.key);
             current.key = right.key;
             current.value = right.value;
-        }
-        else{
+        } else {
             var next = current.left == null ? current.right : current.left;
 
-            if(current == this.root){
+            if (current == this.root) {
                 this.root = next;
-            }
-            else if(current == parent.left){
+            } else if (current == parent.left) {
                 parent.left = next;
-            }
-            else{
+            } else {
                 parent.right = next;
             }
         }
@@ -99,12 +86,11 @@ public class BinarySearchTree<TKey extends Integer, TValue> extends BinarySearch
         return this.searchParentNode(null, this.root, key);
     }
 
-    private NodeTuple<TKey, TValue> searchParentNode(Node<TKey, TValue> parent, Node<TKey, TValue> current, TKey key){
+    private NodeTuple<TKey, TValue> searchParentNode(Node<TKey, TValue> parent, Node<TKey, TValue> current, TKey key) {
 
-        if(current == null){
+        if (current == null) {
             return null;
-        }
-        else if(current.key.equals(key)){
+        } else if (current.key.equals(key)) {
             return new NodeTuple<>(parent, current);
         }
 
@@ -129,13 +115,13 @@ public class BinarySearchTree<TKey extends Integer, TValue> extends BinarySearch
     @Override
     public void levelOrderTraversal() {
 
-        if(this.root == null){
+        if (this.root == null) {
             return;
         }
 
         var queue = getLinkedList();
 
-        while(!queue.isEmpty()){
+        while (!queue.isEmpty()) {
             var current = queue.removeFirst();
 
             if (current == null) {
@@ -144,11 +130,11 @@ public class BinarySearchTree<TKey extends Integer, TValue> extends BinarySearch
 
             System.out.println(current.key + " ");
 
-            if(current.left != null){
+            if (current.left != null) {
                 queue.add(current.left);
             }
 
-            if(current.right != null){
+            if (current.right != null) {
                 queue.add(current.right);
             }
         }
@@ -158,32 +144,31 @@ public class BinarySearchTree<TKey extends Integer, TValue> extends BinarySearch
     public int countInternal() {
         int count = 0;
 
-        if(this.root == null){
+        if (this.root == null) {
             return count;
         }
 
         var queue = getLinkedList();
 
-        while(!queue.isEmpty()){
+        while (!queue.isEmpty()) {
             var current = queue.removeFirst();
 
             if (current == null) {
                 break;
             }
 
-            if((current.left != null || current.right != null) && this.root != current){
+            if ((current.left != null || current.right != null) && this.root != current) {
                 count++;
                 System.out.println(current.key + " true");
-            }
-            else{
+            } else {
                 System.out.println(current.key + " false");
             }
 
-            if(current.left != null){
+            if (current.left != null) {
                 queue.add(current.left);
             }
 
-            if(current.right != null){
+            if (current.right != null) {
                 queue.add(current.right);
             }
         }
@@ -191,8 +176,8 @@ public class BinarySearchTree<TKey extends Integer, TValue> extends BinarySearch
         return count;
     }
 
-    private LinkedList<Node<TKey,TValue>> getLinkedList() {
-        var queue = new LinkedList<Node<TKey,TValue>>();
+    private LinkedList<Node<TKey, TValue>> getLinkedList() {
+        var queue = new LinkedList<Node<TKey, TValue>>();
         queue.add(root);
         return queue;
     }
@@ -202,15 +187,15 @@ public class BinarySearchTree<TKey extends Integer, TValue> extends BinarySearch
 
         var node = this.search(key);
 
-        if(node == null){
+        if (node == null) {
             return -1;
         }
 
-        if(node.right == null && node.left == null){
+        if (node.right == null && node.left == null) {
             return 0;
         }
 
-        if(node.right != null && node.left != null){
+        if (node.right != null && node.left != null) {
             return 2;
         }
 
@@ -219,16 +204,66 @@ public class BinarySearchTree<TKey extends Integer, TValue> extends BinarySearch
 
     @Override
     public int height(TKey tKey) {
-        return 0;
+        var node = this.search(tKey);
+        if (node == null) {
+            return -1;
+        }
+
+        return calculateHeight(node);
+    }
+
+    private int calculateHeight(Node<TKey, TValue> node) {
+        if (node == null) {
+            return -1;
+        }
+
+        int leftHeight = calculateHeight(node.left);
+        int rightHeight = calculateHeight(node.right);
+        
+        return Math.max(leftHeight, rightHeight) + 1;
     }
 
     @Override
     public int level(TKey tKey) {
-        return 0;
+        var node = this.search(tKey);
+        if (node == null) {
+            return -1;
+        }
+
+        int level = 0;
+        var current = this.root;
+
+        while (current != null) {
+            if (current.key.equals(tKey)) {
+            return level;
+            }
+
+            current = current.next(tKey);
+            level++;
+        }
+
+        return -1;
     }
 
     @Override
     public String ancestor(TKey tKey) {
-        return "";
+        var node = this.search(tKey);
+        if (node == null || node == this.root) {
+            return null;
+        }
+
+        var ancestors = new StringBuilder();
+        var current = this.root;
+
+        while (current != null) {
+            if (current.key.equals(tKey)) {
+            break;
+            }
+
+            ancestors.append(current.key).append(" ");
+            current = current.next(tKey);
+        }
+
+        return ancestors.toString().trim();
     }
 }
