@@ -171,10 +171,12 @@ public class BinarySearchTree<TKey extends Integer, TValue> extends BinarySearch
                 break;
             }
 
-            System.out.println(current.key + " ");
-
             if((current.left != null || current.right != null) && this.root != current){
                 count++;
+                System.out.println(current.key + " true");
+            }
+            else{
+                System.out.println(current.key + " false");
             }
 
             if(current.left != null){
