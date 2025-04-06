@@ -128,12 +128,12 @@ public class BinarySearchTree<TKey extends Integer, TValue> extends BinarySearch
 
     @Override
     public void levelOrderTraversal() {
+
         if(this.root == null){
             return;
         }
 
-        var queue = new LinkedList<Node<TKey,TValue>>();
-        queue.add(root);
+        var queue = getLinkedList();
 
         while(!queue.isEmpty()){
             var current = queue.removeFirst();
@@ -143,9 +143,11 @@ public class BinarySearchTree<TKey extends Integer, TValue> extends BinarySearch
             }
 
             System.out.println(current.key + " ");
+
             if(current.left != null){
                 queue.add(current.left);
             }
+
             if(current.right != null){
                 queue.add(current.right);
             }
@@ -154,12 +156,63 @@ public class BinarySearchTree<TKey extends Integer, TValue> extends BinarySearch
 
     @Override
     public int countInternal() {
-        return 0;
+        int count = 0;
+
+        if(this.root == null){
+            return count;
+        }
+
+        var queue = getLinkedList();
+
+        while(!queue.isEmpty()){
+            var current = queue.removeFirst();
+
+            if (current == null) {
+                break;
+            }
+
+            System.out.println(current.key + " ");
+
+            if((current.left != null || current.right != null) && this.root != current){
+                count++;
+            }
+
+            if(current.left != null){
+                queue.add(current.left);
+            }
+
+            if(current.right != null){
+                queue.add(current.right);
+            }
+        }
+
+        return count;
+    }
+
+    private LinkedList<Node<TKey,TValue>> getLinkedList() {
+        var queue = new LinkedList<Node<TKey,TValue>>();
+        queue.add(root);
+        return queue;
     }
 
     @Override
-    public int degree(TKey tKey) {
-        return 0;
+    public int degree(TKey key) {
+
+        var node = this.search(key);
+
+        if(node == null){
+            return -1;
+        }
+
+        if(node.right == null && node.left == null){
+            return 0;
+        }
+
+        if(node.right != null && node.left != null){
+            return 2;
+        }
+
+        return 1;
     }
 
     @Override
